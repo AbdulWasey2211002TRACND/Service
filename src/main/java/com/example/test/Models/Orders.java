@@ -25,6 +25,8 @@ public class Orders {
     Long totalprice;
     Long quantity;
     Long productid;
+    String image_link;
+
 
     // constructor
    
@@ -33,12 +35,13 @@ public class Orders {
 
     }
 
-    public Orders(Long id, String name, Long price, Long totalprice, Long quantity, Long productid) {
+    public Orders(Long id, String name, Long price, Long totalprice, Long quantity, Long productid, String image_link) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.totalprice = totalprice;
         this.quantity = quantity;
+        this.image_link=image_link;
         this.productid = productid;
     }
 
