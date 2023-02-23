@@ -44,4 +44,11 @@ public class Routes {
 
     }
 
+    @DeleteMapping("/delete_all_orders")
+    public ResponseEntity DeleteOrder() {
+        order.deleteAll();
+        return new ResponseEntity<Object>("All Orders Deleted Successfully", HttpStatus.OK);
+
+    }
+
 }

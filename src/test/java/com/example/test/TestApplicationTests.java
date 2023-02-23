@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -36,6 +38,28 @@ class TestApplicationTests {
 		assertEquals(2L, order.getProductid());
 		assertEquals("imagelink", order.getImage_link());
 	}
+
+	@Test
+    public void testNoArgsConstructor() {
+        Orders order = new Orders();
+
+        order.setId(1L);
+        order.setName("Shirt");
+        order.setPrice(100L);
+        order.setTotalprice(500L);
+        order.setQuantity(5L);
+        order.setProductid(2L);
+        order.setImage_link("imagelink");
+
+    
+        assertEquals(1L, order.getId());
+        assertEquals("Shirt", order.getName());
+        assertEquals(100L, order.getPrice());
+        assertEquals(500L, order.getTotalprice());
+        assertEquals(5L, order.getQuantity());
+        assertEquals(2L, order.getProductid());
+        assertEquals("imagelink", order.getImage_link());
+    }
 
 	@Test
 	public void testGettersAndSetters() {
@@ -90,6 +114,22 @@ class TestApplicationTests {
 
 		assertTrue(response.getBody().toString().contains("Order Deleted Successfully"));
 		assertFalse(orderrepo.findById(order.getId()).isPresent());
+
+		
 	}
+
+	@Test
+    public void testDeleteAllOrder() {
+        // Arrange
+        doNothing().when(orderrepo).deleteAll();
+
+        // Act
+        ResponseEntity response = routesController.DeleteOrder();
+
+        // Assert
+        verify(orderrepo).deleteAll();
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("All Orders Deleted Successfully", response.getBody());
+    }
 
 }
